@@ -7,8 +7,8 @@ All notable changes are documented here.
 - Added a HumHub uninstall migration that removes the module table.
 - Added English source messages and a German administrative translation.
 - Made the entire countdown wording configurable.
-- Added validation against an expired deadline, a same-host target and
-  credential-bearing destination URLs.
+- Added validation against an expired deadline and credential-bearing
+  destination URLs.
 - Improved keyboard handling, network-failure behaviour and small-screen
   scrolling in the notice dialog.
 - Expanded isolated checks and the public documentation.

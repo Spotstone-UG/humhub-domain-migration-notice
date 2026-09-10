@@ -4,7 +4,6 @@ namespace humhub\modules\domainmigrationnotice\models;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use humhub\modules\domainmigrationnotice\services\HostMatcher;
 use Yii;
 use yii\base\Model;
 
@@ -50,7 +49,6 @@ class SettingsForm extends Model
             [['targetUrl', 'deadlineLocal', 'heading', 'message', 'countdownLabel', 'countdownFormat', 'deadlineReachedLabel', 'destinationLabel', 'dismissLabel', 'weeklyDismissLabel'], 'required'],
             ['targetUrl', 'url', 'defaultScheme' => 'https'],
             ['targetUrl', 'validateHttpUrl'],
-            ['targetUrl', 'validateTargetHost'],
             ['deadlineLocal', 'validateDeadline'],
             ['heading', 'string', 'max' => 255],
             [['countdownLabel', 'countdownFormat', 'deadlineReachedLabel', 'destinationLabel', 'dismissLabel', 'weeklyDismissLabel'], 'string', 'max' => 255],
@@ -97,21 +95,6 @@ class SettingsForm extends Model
 
         if (isset($parts['user']) || isset($parts['pass'])) {
             $this->addError($attribute, Yii::t('DomainmigrationnoticeModule.base', 'The destination URL must not contain login details.'));
-        }
-    }
-
-    /**
-     * An enabled rule pointing to the current host would silently never apply.
-     * Catch this common configuration mistake before it can delay a migration.
-     */
-    public function validateTargetHost(string $attribute): void
-    {
-        if (!$this->enabled || $this->hasErrors($attribute)) {
-            return;
-        }
-
-        if (HostMatcher::matches(Yii::$app->request->hostName, $this->$attribute)) {
-            $this->addError($attribute, Yii::t('DomainmigrationnoticeModule.base', 'The destination host must differ from the host on which you enable this notice.'));
         }
     }
 

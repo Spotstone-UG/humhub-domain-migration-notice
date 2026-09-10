@@ -35,7 +35,6 @@ return [
     'Show countdown' => 'Countdown anzeigen',
     'Show the guest cookie notice' => 'Cookie-Hinweis für Gäste anzeigen',
     'Show the subtle frontend attribution' => 'Unauffälligen Hinweis auf die Urheberschaft im Frontend anzeigen',
-    'The destination host must differ from the host on which you enable this notice.' => 'Der Ziel-Host muss sich von dem Host unterscheiden, auf dem du diesen Hinweis aktivierst.',
     'The destination URL must not contain login details.' => 'Die Ziel-URL darf keine Zugangsdaten enthalten.',
     'The migration notice is not active for this address.' => 'Der Hinweis zum Domain-Umzug ist für diese Adresse nicht aktiv.',
     'The module configuration is missing.' => 'Die Modulkonfiguration fehlt.',

@@ -23,10 +23,8 @@ the result with a preview before activating the notice.
 
 - The rule is inactive until it has a valid HTTP(S) target URL, a deadline and
   an explicit enablement.
-- Enabling the notice is refused if its deadline is already in the past or if
-  the configured target host is the host currently being configured. Both
-  mistakes would otherwise make a migration notice ineffective or immediately
-  lock the community.
+- Enabling the notice is refused if its deadline is already in the past, which
+  would otherwise immediately lock the community.
 - The post-deadline block keeps the module's migration page and sign-in route
   reachable so a system administrator can correct or disable a mistaken rule.
 - Only CSRF-protected, same-origin POST requests store display state. The

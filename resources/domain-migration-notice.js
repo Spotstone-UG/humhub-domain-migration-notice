@@ -75,6 +75,11 @@
         var snooze = notice.querySelector('[data-dmn-snooze]');
         if (snooze) {
             snooze.addEventListener('click', function () {
+                if (preview) {
+                    closeNotice();
+                    return;
+                }
+
                 snooze.disabled = true;
                 post(notice.dataset.dismissWeekUrl, token).then(function (stored) {
                     if (stored) {

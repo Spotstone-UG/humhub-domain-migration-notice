@@ -4,6 +4,7 @@ namespace humhub\modules\domainmigrationnotice\controllers;
 
 use humhub\modules\domainmigrationnotice\models\Configuration;
 use humhub\modules\domainmigrationnotice\models\SettingsForm;
+use humhub\modules\domainmigrationnotice\services\FrequencyPolicy;
 use Yii;
 
 /**
@@ -35,6 +36,11 @@ class AdminController extends \humhub\modules\admin\components\Controller
             throw new \yii\web\ServerErrorHttpException(Yii::t('DomainmigrationnoticeModule.base', 'The module configuration is missing.'));
         }
 
-        return $this->render('preview', ['configuration' => $configuration]);
+        // The preview mirrors the current deadline stage without requiring an
+        // old host. It must therefore also show the post-deadline layout.
+        $blocked = $configuration->deadline_at !== null
+            && FrequencyPolicy::stage((int)$configuration->deadline_at, time()) === FrequencyPolicy::BLOCKED;
+
+        return $this->render('preview', ['configuration' => $configuration, 'blocked' => $blocked]);
     }
 }

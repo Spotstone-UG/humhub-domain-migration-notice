@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /** @var string $csrfToken */
 
 $isGuest = Yii::$app->user->isGuest;
-$canSnooze = !$blocked && !$preview && $stage === FrequencyPolicy::DAILY && (bool)$configuration->enable_weekly_dismissal;
+$canSnooze = !$blocked && $stage === FrequencyPolicy::DAILY && (bool)$configuration->enable_weekly_dismissal;
 $classes = ['dmn-notice'];
 if ($blocked) {
     $classes[] = 'dmn-notice--blocked';
@@ -37,14 +37,14 @@ if ($preview) {
     data-csrf-token="<?= Html::encode($csrfToken) ?>">
     <div class="dmn-notice__backdrop"></div>
     <div class="dmn-notice__card" role="document">
-        <?php if (!$blocked && !$preview): ?>
+        <?php if (!$blocked): ?>
             <button class="dmn-notice__close" type="button" data-dmn-close aria-label="<?= Html::encode($configuration->dismiss_label) ?>">×</button>
         <?php endif; ?>
         <h1 id="dmn-notice-heading" class="dmn-notice__heading"><?= Html::encode($configuration->heading) ?></h1>
         <div id="dmn-notice-message" class="dmn-notice__message richtext">
             <?= RichText::output($configuration->message) ?>
         </div>
-        <?php if ($configuration->show_countdown && !$preview): ?>
+        <?php if ($configuration->show_countdown): ?>
             <div class="dmn-notice__countdown" aria-live="polite">
                 <span class="dmn-notice__countdown-label"><?= Html::encode($configuration->countdown_label) ?></span>
                 <strong data-dmn-countdown>—</strong>
@@ -55,7 +55,7 @@ if ($preview) {
         <?php endif; ?>
         <div class="dmn-notice__actions">
             <?= Html::a(Html::encode($configuration->destination_label), $configuration->target_url, ['class' => 'btn btn-primary dmn-notice__destination']) ?>
-            <?php if (!$blocked && !$preview): ?>
+            <?php if (!$blocked): ?>
                 <button class="btn btn-default" type="button" data-dmn-close><?= Html::encode($configuration->dismiss_label) ?></button>
             <?php endif; ?>
             <?php if ($canSnooze): ?>

@@ -2,6 +2,12 @@
 
 All notable changes are documented here.
 
+## 0.1.2 — 2026-09-10
+
+- Fixed host matching on installations with IDN support.
+- Made the administrator preview render the complete current popup state,
+  including countdown and visible actions, without recording display state.
+
 ## 0.1.1 — 2026-09-10
 
 - Added a HumHub uninstall migration that removes the module table.

@@ -31,8 +31,11 @@ final class HostMatcher
         }
 
         $host = rtrim(strtolower($host), '.');
-        if ($host !== '' && function_exists('idn_to_ascii')) {
-            $asciiHost = idn_to_ascii($host, IDN_DEFAULT);
+        if ($host !== '' && function_exists('idn_to_ascii') && defined('IDN_DEFAULT')) {
+            // Resolve the constant by name so PHP does not search for it inside
+            // this module namespace. Some installations provide idn_to_ascii()
+            // without the corresponding IDN constants, so keep that optional.
+            $asciiHost = idn_to_ascii($host, constant('IDN_DEFAULT'));
             if ($asciiHost !== false) {
                 $host = strtolower($asciiHost);
             }

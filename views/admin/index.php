@@ -48,5 +48,15 @@ $this->title = $t('Domain Migration Notice');
             <?= Html::a($t('Preview notice'), Url::to(['/domainmigrationnotice/admin/preview']), ['class' => 'btn btn-default']) ?>
         </div>
         <?php ActiveForm::end(); ?>
+
+        <hr>
+        <h4><?= Html::encode($t('Show the notice again')) ?></h4>
+        <p class="help-block"><?= Html::encode($t('This clears the daily, hourly, and one-week display state for all signed-in people. Guest browser cookies cannot be reset centrally.')) ?></p>
+        <?= Html::beginForm(['/domainmigrationnotice/admin/reset-user-state'], 'post') ?>
+            <?= Html::submitButton($t('Reset all signed-in user states'), [
+                'class' => 'btn btn-default',
+                'data-confirm' => $t('Show the migration notice again for all signed-in people? Their current one-week dismissal and display timing will be reset.'),
+            ]) ?>
+        <?= Html::endForm() ?>
     </div>
 </div>

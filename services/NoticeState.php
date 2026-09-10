@@ -4,6 +4,7 @@ namespace humhub\modules\domainmigrationnotice\services;
 
 use humhub\modules\domainmigrationnotice\models\Configuration;
 use Yii;
+use humhub\modules\content\models\ContentContainerSetting;
 use yii\web\Cookie;
 
 /**
@@ -14,6 +15,8 @@ class NoticeState
 {
     public const COOKIE_NEXT_DISPLAY = 'dmn_next_display_at';
     public const COOKIE_SNOOZED_UNTIL = 'dmn_snoozed_until';
+    public const SETTING_NEXT_DISPLAY = 'nextDisplayAt';
+    public const SETTING_SNOOZED_UNTIL = 'snoozedUntil';
 
     public function configuration(): ?Configuration
     {
@@ -66,14 +69,37 @@ class NoticeState
         $this->writeSnoozedUntil(time() + 7 * 86400);
     }
 
+    /**
+     * Removes account-based display history for every person. Deleting records
+     * one by one lets HumHub invalidate its settings cache for each account.
+     * Browser cookies belong to guests and cannot be cleared remotely.
+     */
+    public static function resetAllAccountDisplayState(): int
+    {
+        $count = 0;
+        $settings = ContentContainerSetting::find()
+            ->where([
+                'module_id' => 'domainmigrationnotice',
+                'name' => [self::SETTING_NEXT_DISPLAY, self::SETTING_SNOOZED_UNTIL],
+            ]);
+
+        foreach ($settings->each(100) as $setting) {
+            if ($setting->delete()) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
     private function nextDisplayAt(): int
     {
-        return $this->readValue('nextDisplayAt', self::COOKIE_NEXT_DISPLAY);
+        return $this->readValue(self::SETTING_NEXT_DISPLAY, self::COOKIE_NEXT_DISPLAY);
     }
 
     private function snoozedUntil(): int
     {
-        return $this->readValue('snoozedUntil', self::COOKIE_SNOOZED_UNTIL);
+        return $this->readValue(self::SETTING_SNOOZED_UNTIL, self::COOKIE_SNOOZED_UNTIL);
     }
 
     private function readValue(string $settingName, string $cookieName): int
@@ -88,12 +114,12 @@ class NoticeState
 
     private function writeNextDisplayAt(int $timestamp): void
     {
-        $this->writeValue('nextDisplayAt', self::COOKIE_NEXT_DISPLAY, $timestamp);
+        $this->writeValue(self::SETTING_NEXT_DISPLAY, self::COOKIE_NEXT_DISPLAY, $timestamp);
     }
 
     private function writeSnoozedUntil(int $timestamp): void
     {
-        $this->writeValue('snoozedUntil', self::COOKIE_SNOOZED_UNTIL, $timestamp);
+        $this->writeValue(self::SETTING_SNOOZED_UNTIL, self::COOKIE_SNOOZED_UNTIL, $timestamp);
     }
 
     private function writeValue(string $settingName, string $cookieName, int $timestamp): void

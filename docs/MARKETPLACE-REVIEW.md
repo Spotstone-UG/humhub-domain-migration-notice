@@ -1,6 +1,6 @@
 # Marketplace review notes
 
-This file records the release checks completed for version 0.1.2.
+This file records the release checks completed for version 0.1.3.
 
 - [x] Unique module ID and matching folder/configuration namespace
 - [x] Declared HumHub minimum version (1.18.5)

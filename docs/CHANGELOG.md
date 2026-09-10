@@ -2,6 +2,12 @@
 
 All notable changes are documented here.
 
+## 0.1.3 — 2026-09-10
+
+- Added an administrator action to reset all account-based display timing and
+  one-week dismissals, making the notice eligible again for signed-in people.
+- Documented that guest browser cookies cannot be cleared remotely.
+
 ## 0.1.2 — 2026-09-10
 
 - Fixed host matching on installations with IDN support.

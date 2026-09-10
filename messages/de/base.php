@@ -2,6 +2,7 @@
 
 return [
     'A one-week dismissal is not available at this time.' => 'Eine Ausblendung für eine Woche ist derzeit nicht verfügbar.',
+    'Account notice states could not be reset. Check the server log and try again.' => 'Die Anzeigezustände der Konten konnten nicht zurückgesetzt werden. Prüfe das Serverprotokoll und versuche es erneut.',
     'Choose a deadline in the future before enabling the notice.' => 'Wähle vor dem Aktivieren einen Zeitpunkt in der Zukunft.',
     'configuration' => 'Konfiguration',
     'Countdown format' => 'Countdown-Format',
@@ -32,6 +33,7 @@ return [
     'Preview notice' => 'Hinweis in der Vorschau anzeigen',
     'Save settings' => 'Einstellungen speichern',
     'Show countdown' => 'Countdown anzeigen',
+    'Show the notice again' => 'Hinweis erneut anzeigen',
     'Show the guest cookie notice' => 'Cookie-Hinweis für Gäste anzeigen',
     'Show the subtle frontend attribution' => 'Unauffälligen Hinweis auf die Urheberschaft im Frontend anzeigen',
     'The destination URL must not contain login details.' => 'Die Ziel-URL darf keine Zugangsdaten enthalten.',
@@ -40,8 +42,12 @@ return [
     'The module configuration is missing. Re-enable the module so that its migration can run.' => 'Die Modulkonfiguration fehlt. Aktiviere das Modul erneut, damit die Datenbankmigration ausgeführt werden kann.',
     'The notice is shown only on hosts different from the destination host. HTTP and HTTPS are treated as the same host; subdomains are not.' => 'Der Hinweis wird nur auf Hosts angezeigt, die vom Ziel-Host abweichen. HTTP und HTTPS gelten als derselbe Host; Subdomains bleiben unterschiedlich.',
     'This preview does not store display history and does not change the active domain rule.' => 'Diese Vorschau speichert keinen Anzeigeverlauf und verändert die aktive Domain-Regel nicht.',
+    'This clears the daily, hourly, and one-week display state for all signed-in people. Guest browser cookies cannot be reset centrally.' => 'Damit werden die täglichen, stündlichen und einwöchigen Anzeigezustände aller angemeldeten Personen gelöscht. Browser-Cookies von Gästen können nicht zentral zurückgesetzt werden.',
     'Use {days}, {hours}, and {minutes} as placeholders in the countdown format.' => 'Verwende {days}, {hours} und {minutes} als Platzhalter im Countdown-Format.',
     'Visible frontend text and options' => 'Sichtbare Texte und Optionen im Frontend',
+    '{count} account notice state(s) reset. Guest browser cookies cannot be reset centrally.' => '{count} Anzeigezustand bzw. Anzeigezustände von Konten wurden zurückgesetzt. Browser-Cookies von Gästen können nicht zentral zurückgesetzt werden.',
+    'Reset all signed-in user states' => 'Anzeigezustände aller angemeldeten Personen zurücksetzen',
+    'Show the migration notice again for all signed-in people? Their current one-week dismissal and display timing will be reset.' => 'Den Hinweis zum Domain-Umzug für alle angemeldeten Personen erneut anzeigen? Ihre aktuelle Ausblendung für eine Woche und der Anzeigezeitpunkt werden zurückgesetzt.',
     'weeklyDismissLabel' => 'Für eine Woche ausblenden',
     'with' => 'mit',
 ];

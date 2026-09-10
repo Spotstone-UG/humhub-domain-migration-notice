@@ -1,0 +1,15 @@
+{
+  "id": "domainmigrationnotice",
+  "name": "Domain Migration Notice",
+  "description": "Shows a configurable migration notice when this community is opened on an old domain or subdomain.",
+  "version": "0.1.0",
+  "humhub": {
+    "minVersion": "1.18.5"
+  },
+  "keywords": [
+    "domain",
+    "migration",
+    "notice",
+    "redirect"
+  ]
+}

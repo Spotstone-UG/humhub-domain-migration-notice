@@ -96,8 +96,15 @@
 }
 
 .dmn-notice__attribution {
-    margin-top: 20px;
+    font-size: 10px;
+    line-height: 1.35;
+    margin: 30px 0 0;
+    opacity: .62;
     text-align: center;
+}
+
+.dmn-notice__attribution a {
+    color: inherit;
 }
 
 .dmn-notice--preview {

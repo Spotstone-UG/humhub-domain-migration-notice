@@ -39,15 +39,14 @@ $this->title = $t('Domain Migration Notice');
         <?= $form->field($formModel, 'customCss')->textarea(['rows' => 9, 'spellcheck' => 'false']) ?>
         <p class="help-block"><?= Html::encode($t('Custom CSS is for trusted administrators. It is added only while this module renders a notice. HTML tags are not accepted.')) ?></p>
 
+        <p class="text-muted small">
+            <?= Html::encode($t('Created by')) ?> <a href="https://github.com/ingofleckenstein" target="_blank" rel="noopener">Ingo Fleckenstein</a>
+            <?= Html::encode($t('with')) ?> <a href="https://github.com/Spotstone-UG" target="_blank" rel="noopener">Spotstone UG</a>.
+        </p>
         <div class="form-group">
             <?= Html::submitButton($t('Save settings'), ['class' => 'btn btn-primary']) ?>
             <?= Html::a($t('Preview notice'), Url::to(['/domainmigrationnotice/admin/preview']), ['class' => 'btn btn-default']) ?>
         </div>
         <?php ActiveForm::end(); ?>
-    </div>
-    <div class="panel-footer text-muted small">
-        <?= Html::encode($t('Created by')) ?> <a href="https://github.com/ingofleckenstein" target="_blank" rel="noopener">Ingo Fleckenstein</a>
-        <?= Html::encode($t('with')) ?> <a href="https://github.com/Spotstone-UG" target="_blank" rel="noopener">Spotstone UG</a>.
-        <?= Html::encode($t('Developed with assistance from GPT-5.6 Terra.')) ?>
     </div>
 </div>

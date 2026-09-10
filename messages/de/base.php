@@ -14,7 +14,6 @@ return [
     'Deadline reached label' => 'Text nach Ablauf des Stichtags',
     'Destination button label' => 'Beschriftung des Ziel-Buttons',
     'Destination URL' => 'Ziel-URL',
-    'Developed with assistance from GPT-5.6 Terra.' => 'Entwickelt mit Unterstützung von GPT-5.6 Terra.',
     'dismissLabel' => 'Schließen',
     'Dismiss button label' => 'Beschriftung des Schließen-Buttons',
     'Domain Migration Notice' => 'Hinweis zum Domain-Umzug',

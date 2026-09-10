@@ -101,9 +101,9 @@ update and disable the module in a HumHub 1.18.5 test installation.
 ## Attribution
 
 Created by [Ingo Fleckenstein](https://github.com/ingofleckenstein) with
-[Spotstone UG](https://github.com/Spotstone-UG), with assistance from GPT-5.6
-Terra. The module itself remains generic and contains no deployment-specific
-domain or organisation configuration.
+[Spotstone UG](https://github.com/Spotstone-UG). The module itself remains
+generic and contains no deployment-specific domain or organisation
+configuration.
 
 ## Licence
 

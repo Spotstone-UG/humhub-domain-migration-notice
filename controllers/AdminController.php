@@ -16,12 +16,12 @@ class AdminController extends \humhub\modules\admin\components\Controller
     {
         $configuration = Configuration::get();
         if ($configuration === null) {
-            throw new \yii\web\ServerErrorHttpException('The module configuration is missing. Re-enable the module so that its migration can run.');
+            throw new \yii\web\ServerErrorHttpException(Yii::t('DomainmigrationnoticeModule.base', 'The module configuration is missing. Re-enable the module so that its migration can run.'));
         }
 
         $form = new SettingsForm($configuration);
         if ($form->load(Yii::$app->request->post()) && $form->save($configuration)) {
-            Yii::$app->session->setFlash('success', 'Domain migration notice settings saved.');
+            Yii::$app->session->setFlash('success', Yii::t('DomainmigrationnoticeModule.base', 'Domain migration notice settings saved.'));
             return $this->redirect(['index']);
         }
 
@@ -32,7 +32,7 @@ class AdminController extends \humhub\modules\admin\components\Controller
     {
         $configuration = Configuration::get();
         if ($configuration === null) {
-            throw new \yii\web\ServerErrorHttpException('The module configuration is missing.');
+            throw new \yii\web\ServerErrorHttpException(Yii::t('DomainmigrationnoticeModule.base', 'The module configuration is missing.'));
         }
 
         return $this->render('preview', ['configuration' => $configuration]);

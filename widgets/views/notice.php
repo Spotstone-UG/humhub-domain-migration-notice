@@ -23,12 +23,15 @@ if ($preview) {
 ?>
 <section class="<?= Html::encode(implode(' ', $classes)) ?>"
     role="dialog"
-    aria-modal="<?= $blocked ? 'true' : 'false' ?>"
+    aria-modal="true"
     aria-labelledby="dmn-notice-heading"
+    aria-describedby="dmn-notice-message"
     data-dmn-notice
     data-preview="<?= $preview ? '1' : '0' ?>"
     data-blocked="<?= $blocked ? '1' : '0' ?>"
     data-deadline="<?= (int)$configuration->deadline_at ?>"
+    data-countdown-format="<?= Html::encode($configuration->countdown_format) ?>"
+    data-deadline-reached-label="<?= Html::encode($configuration->deadline_reached_label) ?>"
     data-seen-url="<?= Html::encode(Url::to(['/domainmigrationnotice/notice/seen'])) ?>"
     data-dismiss-week-url="<?= Html::encode(Url::to(['/domainmigrationnotice/notice/dismiss-week'])) ?>"
     data-csrf-token="<?= Html::encode($csrfToken) ?>">
@@ -38,7 +41,7 @@ if ($preview) {
             <button class="dmn-notice__close" type="button" data-dmn-close aria-label="<?= Html::encode($configuration->dismiss_label) ?>">×</button>
         <?php endif; ?>
         <h1 id="dmn-notice-heading" class="dmn-notice__heading"><?= Html::encode($configuration->heading) ?></h1>
-        <div class="dmn-notice__message richtext">
+        <div id="dmn-notice-message" class="dmn-notice__message richtext">
             <?= RichText::output($configuration->message) ?>
         </div>
         <?php if ($configuration->show_countdown && !$preview): ?>

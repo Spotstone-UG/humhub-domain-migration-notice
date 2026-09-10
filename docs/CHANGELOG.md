@@ -1,0 +1,18 @@
+# Changelog
+
+All notable changes are documented here.
+
+## 0.1.1 — 2026-09-10
+
+- Added a HumHub uninstall migration that removes the module table.
+- Added English source messages and a German administrative translation.
+- Made the entire countdown wording configurable.
+- Added validation against an expired deadline, a same-host target and
+  credential-bearing destination URLs.
+- Improved keyboard handling, network-failure behaviour and small-screen
+  scrolling in the notice dialog.
+- Expanded isolated checks and the public documentation.
+
+## 0.1.0 — 2026-09-10
+
+- Initial release of Domain Migration Notice for HumHub 1.18.5.

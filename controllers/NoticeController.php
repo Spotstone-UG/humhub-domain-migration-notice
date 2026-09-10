@@ -42,7 +42,7 @@ class NoticeController extends \humhub\components\Controller
         $state = new NoticeState();
         $configuration = $state->configuration();
         if ($configuration === null || !$state->applies($configuration)) {
-            return $this->asJson(['ok' => false, 'message' => 'The migration notice is not active for this address.']);
+            return $this->asJson(['ok' => false, 'message' => Yii::t('DomainmigrationnoticeModule.base', 'The migration notice is not active for this address.')]);
         }
 
         $state->recordDisplay($configuration);
@@ -54,11 +54,11 @@ class NoticeController extends \humhub\components\Controller
         $state = new NoticeState();
         $configuration = $state->configuration();
         if ($configuration === null || !$state->applies($configuration)) {
-            return $this->asJson(['ok' => false, 'message' => 'The migration notice is not active for this address.']);
+            return $this->asJson(['ok' => false, 'message' => Yii::t('DomainmigrationnoticeModule.base', 'The migration notice is not active for this address.')]);
         }
 
         if ($state->stage($configuration) !== FrequencyPolicy::DAILY || !$configuration->enable_weekly_dismissal) {
-            return $this->asJson(['ok' => false, 'message' => 'A one-week dismissal is not available at this time.']);
+            return $this->asJson(['ok' => false, 'message' => Yii::t('DomainmigrationnoticeModule.base', 'A one-week dismissal is not available at this time.')]);
         }
 
         $state->snoozeForWeek();

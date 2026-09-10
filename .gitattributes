@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+# Marketplace assets may be added later and must remain byte-identical.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary

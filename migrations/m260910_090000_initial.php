@@ -3,8 +3,11 @@
 use yii\db\Migration;
 
 /**
- * Creates the module configuration. User-specific display state is stored by
- * HumHub's content-container settings service and is deleted by Module::disable().
+ * Creates the single global module configuration record.
+ *
+ * Account-specific display state is stored through HumHub's content-container
+ * settings service. HumHub removes those settings when the module is disabled.
+ * The configuration table itself is removed by migrations/uninstall.php.
  */
 class m260910_090000_initial extends Migration
 {

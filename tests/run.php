@@ -16,6 +16,8 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
 assertSameValue(true, HostMatcher::matches('old.example.org', 'https://old.example.org/new'), 'The same host must match.');
 assertSameValue(true, HostMatcher::matches('OLD.EXAMPLE.ORG.', 'http://old.example.org'), 'Schemes, case and trailing dots must be ignored.');
 assertSameValue(false, HostMatcher::matches('community.example.org', 'https://example.org'), 'A subdomain must remain distinct.');
+assertSameValue(null, HostMatcher::targetHost('not a URL'), 'An invalid URL must not produce a host.');
+assertSameValue('2001:db8::1', HostMatcher::normalise('[2001:DB8::1]'), 'IPv6 host notation must be normalised.');
 assertSameValue(FrequencyPolicy::DAILY, FrequencyPolicy::stage(10 * 86400, 0), 'More than seven days must be daily.');
 assertSameValue(FrequencyPolicy::HOURLY, FrequencyPolicy::stage(7 * 86400, 0), 'Seven days must be hourly.');
 assertSameValue(FrequencyPolicy::EVERY_LOAD, FrequencyPolicy::stage(3 * 86400, 0), 'Three days must display on every load.');

@@ -5,22 +5,39 @@
         return fetch(url, {
             method: 'POST',
             credentials: 'same-origin',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
             body: '_csrf=' + encodeURIComponent(token)
+        }).then(function (response) {
+            if (!response.ok) {
+                return false;
+            }
+
+            return response.json().then(function (result) {
+                return result && result.ok === true;
+            }).catch(function () {
+                return false;
+            });
         }).catch(function () {
-            // The notice must remain useful even when browser storage is unavailable.
+            // The notice remains readable even when state storage is unavailable.
+            return false;
         });
     }
 
-    function formatRemaining(seconds) {
+    function formatRemaining(seconds, format, deadlineReachedLabel) {
         if (seconds <= 0) {
-            return 'The deadline has been reached.';
+            return deadlineReachedLabel;
         }
 
         var days = Math.floor(seconds / 86400);
         var hours = Math.floor((seconds % 86400) / 3600);
         var minutes = Math.floor((seconds % 3600) / 60);
-        return days + 'd ' + hours + 'h ' + minutes + 'm';
+        return format
+            .replace('{days}', days)
+            .replace('{hours}', hours)
+            .replace('{minutes}', minutes);
     }
 
     function initialise(notice) {
@@ -32,17 +49,41 @@
             post(notice.dataset.seenUrl, token);
         }
 
+        var onKeydown = null;
+        var closeNotice = function () {
+            notice.remove();
+            if (onKeydown) {
+                document.removeEventListener('keydown', onKeydown);
+            }
+        };
+
         notice.querySelectorAll('[data-dmn-close]').forEach(function (button) {
             button.addEventListener('click', function () {
-                notice.remove();
+                closeNotice();
             });
         });
+
+        if (!preview && !blocked) {
+            onKeydown = function (event) {
+                if (event.key === 'Escape' && notice.isConnected) {
+                    closeNotice();
+                }
+            };
+            document.addEventListener('keydown', onKeydown);
+        }
 
         var snooze = notice.querySelector('[data-dmn-snooze]');
         if (snooze) {
             snooze.addEventListener('click', function () {
-                post(notice.dataset.dismissWeekUrl, token);
-                notice.remove();
+                snooze.disabled = true;
+                post(notice.dataset.dismissWeekUrl, token).then(function (stored) {
+                    if (stored) {
+                        closeNotice();
+                        return;
+                    }
+
+                    snooze.disabled = false;
+                });
             });
         }
 
@@ -50,10 +91,21 @@
         if (countdown) {
             var deadline = Number(notice.dataset.deadline) * 1000;
             var update = function () {
-                countdown.textContent = formatRemaining(Math.ceil((deadline - Date.now()) / 1000));
+                countdown.textContent = formatRemaining(
+                    Math.ceil((deadline - Date.now()) / 1000),
+                    notice.dataset.countdownFormat,
+                    notice.dataset.deadlineReachedLabel
+                );
             };
             update();
-            window.setInterval(update, 30000);
+            var timer = window.setInterval(function () {
+                if (!notice.isConnected) {
+                    window.clearInterval(timer);
+                    return;
+                }
+
+                update();
+            }, 30000);
         }
     }
 

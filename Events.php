@@ -20,6 +20,10 @@ class Events
             return;
         }
 
+        if (!$event->isValid || \Yii::$app->response->getIsRedirection()
+            || (\Yii::$app->has('gateManager') && \Yii::$app->get('gateManager')->hasOpenGate())) {
+            return;
+        }
         $state = new NoticeState();
         if (!$state->isBlocked() || self::isAllowedDuringBlock(Yii::$app->controller)) {
             return;
@@ -32,7 +36,8 @@ class Events
 
     public static function onEndBody(Event $event): void
     {
-        if (Yii::$app->request->isConsoleRequest || Yii::$app->request->isAjax || Yii::$app->request->isPjax) {
+        if (Yii::$app->request->isConsoleRequest || Yii::$app->request->isAjax || Yii::$app->request->isPjax
+            || (Yii::$app->has('gateManager') && Yii::$app->get('gateManager')->hasOpenGate())) {
             return;
         }
 
